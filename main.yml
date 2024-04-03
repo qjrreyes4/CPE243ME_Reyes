@@ -1,0 +1,42 @@
+---
+- name: Install UFW for Ubuntu and CentOS
+  hosts: Ubuntu
+  become: true
+  tasks:
+    - name: Installing Requirement Python2 for Ubuntu
+      apt:
+        name: python2
+        state: present
+
+    - name: Installing Requirement Python3 for Ubuntu
+      apt:
+        name: python3-apt
+        state: present
+
+    - name: Installing Requirement Aptitude for Ubuntu
+      apt:
+        name: aptitude
+        state: present
+
+    - name: Installing UFW for Ubuntu
+      apt:
+        name: ufw
+        update_cache: yes
+        state: latest
+
+    - name: Enabling UFW for Ubuntu
+      community.general.ufw:
+        state: enabled
+
+- hosts: CentOS
+  become: true
+  tasks:
+    - name: Install UFW for CentOS
+      yum:
+        name: ufw
+        update_cache: yes
+        state: latest
+
+    - name: Enable UFW for CentOS
+      community.general.ufw:
+        state: enabled
